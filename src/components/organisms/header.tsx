@@ -1,4 +1,6 @@
 import NotificationBell from "../atoms/notification-bell";
+import UserCircle from "../atoms/user-circle";
+import UserHeader from "../molecules/user-header";
 
 export default function Header() {
   return (
@@ -6,12 +8,7 @@ export default function Header() {
       <header className="flex items-center justify-center font-bold text-3xl">
         Sistema de gestion de documentos y entrega
       </header>
-      <div className="flex items-center justify-center pr-3">
-        <NotificationBell className="" />
-        <p className="ml-3 font-medium text-lg">
-          Hola, &lt;&lt;Usuario&gt;&gt;
-        </p>
-      </div>
+      <UserHeader />
     </div>
   );
 }
