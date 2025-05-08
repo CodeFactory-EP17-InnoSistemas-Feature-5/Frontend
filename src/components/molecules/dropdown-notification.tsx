@@ -6,19 +6,21 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/molecules/dropdown-menu";
-import UserCircle from "@/components/atoms/user-circle";
+import NotificationBell from "@/components/atoms/notification-bell";
 
-export default function DropdownUser() {
+export default function DropdownNotification() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <UserCircle className="mr-4" />
+        <NotificationBell className="mr-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel className="font-bold">Mi cuenta</DropdownMenuLabel>
+        <DropdownMenuLabel className="font-bold">
+          Notificaciones
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Configuracion</DropdownMenuItem>
-        <DropdownMenuItem>Cerrar sesion</DropdownMenuItem>
+        <DropdownMenuItem>Notificacion 1</DropdownMenuItem>
+        <DropdownMenuItem>Notificacion 2</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
