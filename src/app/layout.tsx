@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { inter } from "./fonts";
 import "./globals.css";
-import Footer from "../components/organisms/footer";
+import Footer from "@/components/organisms/footer";
 import Header from "@/components/organisms/header";
 
 export const metadata: Metadata = {

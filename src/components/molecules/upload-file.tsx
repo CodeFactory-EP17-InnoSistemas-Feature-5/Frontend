@@ -1,5 +1,5 @@
-import { Button } from "../atoms/button";
-import { Input } from "../atoms/input";
+import { Button } from "@/components/atoms/button";
+import { Input } from "@/components/atoms/input";
 
 export default function UploadFile() {
   return (

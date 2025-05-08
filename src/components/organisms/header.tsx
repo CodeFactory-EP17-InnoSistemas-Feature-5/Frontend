@@ -1,6 +1,5 @@
-import NotificationBell from "../atoms/notification-bell";
-import UserCircle from "../atoms/user-circle";
-import UserHeader from "../molecules/user-header";
+import UserHeader from "@/components/molecules/user-header";
+import DropdownUser from "../molecules/dropdown-user";
 
 export default function Header() {
   return (
@@ -8,7 +7,7 @@ export default function Header() {
       <header className="flex items-center justify-center font-bold text-base sm:text-3xl">
         Sistema de gestion de documentos y entrega
       </header>
-      <UserHeader />
+      <UserHeader children={<DropdownUser />} />
     </div>
   );
 }

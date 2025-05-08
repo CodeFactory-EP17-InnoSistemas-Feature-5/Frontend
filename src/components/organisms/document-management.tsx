@@ -1,7 +1,7 @@
 import { Button } from "../atoms/button";
 import { Input } from "../atoms/input";
-import UploadFile from "../molecules/upload-file";
-import DocumentName from "../molecules/document-name";
+import UploadFile from "@/components/molecules/upload-file";
+import DocumentName from "@/components/molecules/document-name";
 
 export default function DocumentManagement() {
   return (
