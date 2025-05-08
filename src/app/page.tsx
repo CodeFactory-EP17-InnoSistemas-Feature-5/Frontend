@@ -5,7 +5,7 @@ import DocumentUpload from "@/components/organisms/document-upload";
 
 export default function Home() {
   return (
-    <div>
+    <div className="ml-18 mr-40">
       <DocumentUpload />
     </div>
   );
