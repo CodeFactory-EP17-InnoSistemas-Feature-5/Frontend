@@ -8,8 +8,14 @@ import {
 } from "@/components/ui/card";
 import CardInfo from "@/components/molecules/card-info";
 import { Button } from "@/components/ui/button";
-import { Download, SquarePen, Trash2, Share2 } from "lucide-react";
-import { Share } from "next/font/google";
+import {
+  Download,
+  SquarePen,
+  Trash2,
+  Share2,
+  FileText,
+  Boxes,
+} from "lucide-react";
 
 interface DocumentInfo {
   title: string;
@@ -27,7 +33,16 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
   return (
     <Card className="mt-2 flex h-full min-h-[307px] min-w-[396px] flex-none flex-col rounded-sm">
       <CardHeader className="">
-        <CardTitle className="text-2xl">{document.title}</CardTitle>
+        <CardTitle className="text-2xl">
+          <div className="flex w-full items-center justify-between">
+            {document.title}{" "}
+            {cardVariant === "user" ? (
+              <FileText className="min-h-[31px] min-w-[31px]" />
+            ) : (
+              <Boxes className="min-h-[31px] min-w-[31px] stroke-[1.5]" />
+            )}
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CardInfo
