@@ -1,4 +1,5 @@
 import { ComboboxProjects } from "@/components/molecules/combobox-projects";
+import CardUser from "../molecules/card-user";
 
 export default function DocumentManagement() {
   return (
@@ -7,6 +8,7 @@ export default function DocumentManagement() {
         Gestión de Documentos
       </h1>
       <ComboboxProjects></ComboboxProjects>
+      <CardUser></CardUser>
     </div>
   );
 }

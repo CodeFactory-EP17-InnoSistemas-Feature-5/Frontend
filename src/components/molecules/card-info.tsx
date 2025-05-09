@@ -11,7 +11,7 @@ export default function CardInfo({
   size,
 }: CardInfoProps) {
   return (
-    <div>
+    <div className="font-extralight text-gray-500">
       <p>Autor: {author}</p>
       <p>Subido: {uploadDate}</p>
       <p>Modificado: {modifiedDate}</p>
