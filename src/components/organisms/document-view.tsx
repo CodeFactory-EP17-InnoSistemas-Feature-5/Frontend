@@ -1,7 +1,7 @@
 import CardDocument from "@/components/molecules/card-document";
 const documents = [
   {
-    id: "doc-1", // Added an ID for the key prop when mapping
+    id: "doc-1",
     title: "Informe de Progreso Q1",
     author: "Ana García",
     uploadDate: "10/05/2023",
