@@ -6,7 +6,7 @@ const documents = [
     author: "Ana García",
     uploadDate: "10/05/2023",
     modifiedDate: "15/05/2023",
-    size: "1.8 MB",
+    size: "1.8",
     variant: "user",
   },
   {
@@ -15,7 +15,7 @@ const documents = [
     author: "Carlos López",
     uploadDate: "20/06/2023",
     modifiedDate: "25/06/2023",
-    size: "3.5 MB",
+    size: "3.5",
     variant: "teacher",
   },
   {
@@ -24,7 +24,7 @@ const documents = [
     author: "María Rodríguez",
     uploadDate: "01/07/2023",
     modifiedDate: "01/07/2023",
-    size: "0.75 MB",
+    size: "0.75",
     variant: "user",
   },
 ];
@@ -32,11 +32,11 @@ const documents = [
 export default function DocumentView() {
   return (
     <div className="mt-5">
-      <h1 className="mb-5 text-base font-semibold sm:text-2xl">
+      <h1 className="mb-2 text-base font-semibold sm:text-2xl">
         Documentos del proyecto
       </h1>
       <div className="overflow-x-auto pb-6">
-        <div className="flex flex-row gap-x-4">
+        <div className="flex flex-row items-end gap-x-4">
           {documents.map((document) => (
             <CardDocument
               key={document.id}

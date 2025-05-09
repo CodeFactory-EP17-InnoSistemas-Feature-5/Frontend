@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import CardInfo from "@/components/molecules/card-info";
 import { Button } from "@/components/ui/button";
+import { Download, SquarePen, Trash2, Share2 } from "lucide-react";
+import { Share } from "next/font/google";
 
 interface DocumentInfo {
   title: string;
@@ -39,13 +41,25 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         <div className="flex min-h-10 w-full justify-between">
           {cardVariant === "user" && (
             <>
-              <Button variant={"outline"} className="border-2 border-gray-400">
+              <Button
+                variant={"outline"}
+                className="border-2 border-gray-400 font-semibold"
+              >
+                <Download />
                 Descargar
               </Button>
-              <Button variant={"outline"} className="border-2 border-gray-400">
+              <Button
+                variant={"outline"}
+                className="border-2 border-gray-400 font-semibold"
+              >
+                <SquarePen />
                 Editar
               </Button>
-              <Button variant={"outline"} className="border-2 border-gray-400">
+              <Button
+                variant={"outline"}
+                className="border-2 border-gray-400 font-semibold"
+              >
+                <Share2 />
                 Compartir
               </Button>
             </>
@@ -53,7 +67,11 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         </div>
         <div className="flex w-full">
           {cardVariant === "user" && (
-            <Button variant={"destructive"} className="w-full">
+            <Button
+              variant={"outline"}
+              className="w-full border-2 border-gray-400 font-semibold text-red-500 hover:bg-red-400 hover:text-black"
+            >
+              <Trash2 />
               Eliminar
             </Button>
           )}
@@ -62,6 +80,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
               variant={"outline"}
               className="w-full border-2 border-gray-400"
             >
+              <Download />
               Descargar
             </Button>
           )}
