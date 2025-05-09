@@ -1,14 +1,12 @@
 import { ComboboxProjects } from "@/components/molecules/combobox-projects";
-import CardUser from "../molecules/card-user";
 
 export default function DocumentManagement() {
   return (
     <div>
-      <h1 className="font-semibold my-5 sm:text-2xl text-base">
+      <h1 className="mb-3 text-base font-semibold sm:text-2xl">
         Gestión de Documentos
       </h1>
       <ComboboxProjects></ComboboxProjects>
-      <CardUser></CardUser>
     </div>
   );
 }

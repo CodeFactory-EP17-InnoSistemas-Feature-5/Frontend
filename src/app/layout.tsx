@@ -17,9 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased pb-25`}>
+      <body
+        className={`${inter.className} flex min-h-screen flex-col antialiased`}
+      >
         <Header />
-        {children}
+        <main className="flex-grow overflow-y-auto py-5">{children}</main>
         <Footer />
       </body>
     </html>

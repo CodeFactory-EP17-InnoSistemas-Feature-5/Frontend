@@ -56,7 +56,7 @@ export function ComboboxProjects() {
                   value={project.name}
                   onSelect={(currentProject) => {
                     setSelectedProject(
-                      currentProject === selectedProject ? "" : currentProject
+                      currentProject === selectedProject ? "" : currentProject,
                     );
                     setOpen(false);
                   }}
@@ -67,7 +67,7 @@ export function ComboboxProjects() {
                       "ml-auto",
                       selectedProject === project.name
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-0",
                     )}
                   />
                 </CommandItem>
