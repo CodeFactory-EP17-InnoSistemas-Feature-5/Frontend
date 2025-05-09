@@ -5,7 +5,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
-} from "@/components/molecules/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export default function DropdownProject() {
   return (

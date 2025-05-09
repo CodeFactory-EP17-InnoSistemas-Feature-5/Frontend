@@ -1,5 +1,5 @@
-import { Button } from "../atoms/button";
-import { Input } from "../atoms/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import UploadFile from "@/components/molecules/upload-file";
 import DocumentName from "@/components/molecules/document-name";
 

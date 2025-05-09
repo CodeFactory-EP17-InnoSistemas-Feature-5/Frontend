@@ -5,7 +5,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
-} from "@/components/molecules/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import NotificationBell from "@/components/atoms/notification-bell";
 
 export default function DropdownNotification() {

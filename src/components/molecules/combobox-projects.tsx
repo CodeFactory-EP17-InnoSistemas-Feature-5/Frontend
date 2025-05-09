@@ -7,14 +7,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/atoms/command";
+} from "@/components/ui/command";
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/atoms/popover";
-import { Button } from "@/components/atoms/button";
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";

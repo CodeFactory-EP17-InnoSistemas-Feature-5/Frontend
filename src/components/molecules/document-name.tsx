@@ -1,5 +1,5 @@
-import { Input } from "@/components/atoms/input";
-import { Label } from "@/components/atoms/label";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function DocumentName() {
   return (

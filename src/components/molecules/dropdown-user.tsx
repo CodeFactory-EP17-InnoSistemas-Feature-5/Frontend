@@ -5,7 +5,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
-} from "@/components/molecules/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import UserCircle from "@/components/atoms/user-circle";
 
 export default function DropdownUser() {
