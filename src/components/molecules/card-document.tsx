@@ -6,30 +6,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Car } from "lucide-react";
-import CardInfo from "./card-info";
-import { Button } from "../ui/button";
+import CardInfo from "@/components/molecules/card-info";
+import { Button } from "@/components/ui/button";
 
+interface DocumentInfo {
+  title: string;
+  author: string;
+  uploadDate: string;
+  modifiedDate: string;
+  size: string;
+}
 interface CardUserProps {
-  documentName?: string;
+  document: DocumentInfo;
   cardVariant: "user" | "teacher";
 }
 
-export default function CardDocument({
-  documentName = "Documento",
-  cardVariant,
-}: CardUserProps) {
+export default function CardDocument({ document, cardVariant }: CardUserProps) {
   return (
-    <Card className="mt-2 h-[307px] w-[396px] rounded-sm">
+    <Card className="mt-2 flex h-full min-h-[307px] min-w-[396px] flex-none flex-col rounded-sm">
       <CardHeader className="">
-        <CardTitle className="text-2xl">{documentName}</CardTitle>
+        <CardTitle className="text-2xl">{document.title}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardInfo
-          author={"Wilmer"}
-          uploadDate={"05/05/2025"}
-          modifiedDate={"09/05/2025"}
-          size={"10"}
+          author={document.author}
+          uploadDate={document.uploadDate}
+          modifiedDate={document.modifiedDate}
+          size={document.size}
         ></CardInfo>
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
