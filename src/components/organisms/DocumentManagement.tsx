@@ -1,4 +1,4 @@
-import { ComboboxProjects } from "@/components/molecules/combobox-projects";
+import { ComboboxProjects } from "@/components/molecules/ComboboxProjects";
 
 export default function DocumentManagement() {
   return (

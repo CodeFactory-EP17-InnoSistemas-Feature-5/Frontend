@@ -1,9 +1,9 @@
 //import Button from "@/components/atoms/button-old";
 import { Button } from "@/components/ui/button";
-import NotificationBell from "@/components/atoms/notification-bell";
-import DocumentManagement from "@/components/organisms/document-management";
-import DocumentUpload from "@/components/organisms/document-upload";
-import DocumentView from "@/components/organisms/document-view";
+import NotificationBell from "@/components/atoms/NotificationBell";
+import DocumentManagement from "@/components/organisms/DocumentManagement";
+import DocumentUpload from "@/components/organisms/DocumentUpload";
+import DocumentView from "@/components/organisms/DocumentView";
 
 export default function Home() {
   return (

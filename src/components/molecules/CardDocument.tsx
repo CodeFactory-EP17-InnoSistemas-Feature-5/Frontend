@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import CardInfo from "@/components/molecules/card-info";
+import CardInfo from "@/components/molecules/CardInfo";
 import { Button } from "@/components/ui/button";
 import {
   Download,

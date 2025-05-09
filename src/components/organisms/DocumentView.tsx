@@ -1,4 +1,4 @@
-import CardDocument from "@/components/molecules/card-document";
+import CardDocument from "@/components/molecules/CardDocument";
 const documents = [
   {
     id: "doc-1",
