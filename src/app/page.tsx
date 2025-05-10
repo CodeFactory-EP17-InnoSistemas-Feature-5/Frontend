@@ -14,7 +14,7 @@ export default function Home() {
         setSelectedProject={setSelectedProject}
       />
       <DocumentUpload />
-      <DocumentView />
+      <DocumentView selectedProject={selectedProject} />
     </div>
   );
 }

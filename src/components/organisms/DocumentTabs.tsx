@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CardDocument from "@/components/molecules/CardDocument";
+import { useMemo } from "react";
 const documents = [
   {
     id: "doc-1",
-    course: "Inteligencia Artificial",
+    project: "Inteligencia Artificial",
     title: "Introducción a Redes Neuronales en Visión Artificial",
     author: "Wilmer Soto",
     uploadDate: "10/05/2023",
@@ -13,7 +14,7 @@ const documents = [
   },
   {
     id: "doc-2",
-    course: "Inteligencia Artificial",
+    project: "Inteligencia Artificial",
     title: "Algoritmos de Aprendizaje Profundo",
     author: "Carlos López",
     uploadDate: "20/06/2023",
@@ -23,7 +24,7 @@ const documents = [
   },
   {
     id: "doc-3",
-    course: "Inteligencia Artificial",
+    project: "Inteligencia Artificial",
     title: "Procesamiento de Lenguaje Natural: Fundamentos",
     author: "Wilmer Soto",
     uploadDate: "01/07/2023",
@@ -33,7 +34,7 @@ const documents = [
   },
   {
     id: "doc-4",
-    course: "Inteligencia Artificial",
+    project: "Inteligencia Artificial",
     title: "Implementación de Redes Generativas Adversariales",
     author: "Wilmer Soto",
     uploadDate: "05/08/2023",
@@ -43,7 +44,7 @@ const documents = [
   },
   {
     id: "doc-5",
-    course: "Inteligencia Artificial",
+    project: "Inteligencia Artificial",
     title: "Optimización de Hiperparámetros en Modelos de IA",
     author: "Carlos López",
     uploadDate: "15/08/2023",
@@ -54,7 +55,7 @@ const documents = [
 
   {
     id: "doc-6",
-    course: "Literatura",
+    project: "Literatura",
     title: "Análisis de Cuentos de Gabriel García Márquez",
     author: "Wilmer Soto",
     uploadDate: "12/08/2023",
@@ -64,7 +65,7 @@ const documents = [
   },
   {
     id: "doc-7",
-    course: "Literatura",
+    project: "Literatura",
     title: "Teoría de la Trama en Novelas Contemporáneas",
     author: "María Hernández",
     uploadDate: "18/08/2023",
@@ -74,7 +75,7 @@ const documents = [
   },
   {
     id: "doc-8",
-    course: "Literatura",
+    project: "Literatura",
     title: "Estudios sobre la Poesía de Federico García Lorca",
     author: "Wilmer Soto",
     uploadDate: "22/08/2023",
@@ -84,7 +85,7 @@ const documents = [
   },
   {
     id: "doc-9",
-    course: "Literatura",
+    project: "Literatura",
     title: "La Evolución del Ensayo Literario",
     author: "Lucía Fernández",
     uploadDate: "28/08/2023",
@@ -94,7 +95,7 @@ const documents = [
   },
   {
     id: "doc-10",
-    course: "Literatura",
+    project: "Literatura",
     title: "Narrativa y Simbolismo en la Literatura Moderna",
     author: "Wilmer Soto",
     uploadDate: "30/08/2023",
@@ -105,10 +106,18 @@ const documents = [
 ];
 
 interface DocumentTabsProps {
-  nameFilter?: string;
+  selectedProject: string;
 }
 
-export default function DocumentTabs() {
+export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
+  const filteredDocuments = useMemo(() => {
+    return documents.filter((document) => document.project === selectedProject);
+  }, [documents, selectedProject]);
+
+  const filteredDocumentsUser = useMemo(() => {
+    return filteredDocuments.filter((document) => document.variant === "user");
+  }, [filteredDocuments]);
+
   return (
     <Tabs defaultValue="all" className="w-full">
       <TabsList className="grid w-[400px] grid-cols-2">
@@ -117,26 +126,40 @@ export default function DocumentTabs() {
       </TabsList>
       <TabsContent value="all">
         <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
-          {documents.map((document) => (
-            <CardDocument
-              key={document.id}
-              document={document}
-              cardVariant={document.variant as "user" | "teacher"}
-            />
-          ))}
+          {filteredDocuments.length > 0 ? (
+            filteredDocuments.map((document) => {
+              return (
+                <CardDocument
+                  key={document.id}
+                  document={document}
+                  cardVariant={document.variant as "user" | "teacher"}
+                />
+              );
+            })
+          ) : (
+            <p className="text-muted-foreground text-sm">
+              No se encontraron documentos para el proyecto seleccionado.
+            </p>
+          )}
         </div>
       </TabsContent>
       <TabsContent value="user">
         <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
-          {documents
-            .filter((document) => document.variant === "user")
-            .map((document) => (
-              <CardDocument
-                key={document.id}
-                document={document}
-                cardVariant={document.variant as "user" | "teacher"}
-              />
-            ))}
+          {filteredDocumentsUser.length > 0 ? (
+            filteredDocumentsUser.map((document) => {
+              return (
+                <CardDocument
+                  key={document.id}
+                  document={document}
+                  cardVariant={document.variant as "user" | "teacher"}
+                />
+              );
+            })
+          ) : (
+            <p className="text-muted-foreground text-sm">
+              No se encontraron documentos para el proyecto seleccionado.
+            </p>
+          )}
         </div>
       </TabsContent>
     </Tabs>
