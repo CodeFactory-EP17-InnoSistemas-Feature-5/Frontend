@@ -15,7 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useEffect } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,11 +29,18 @@ interface ComboboxProjectsProps {
   setSelectedProject: (project: string) => void;
 }
 
-export function ComboboxProjects({
+export default function ComboboxProjects({
   selectedProject,
   setSelectedProject,
 }: ComboboxProjectsProps) {
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    if (!selectedProject) {
+      setSelectedProject(projects[0].name);
+    }
+  }, []);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>

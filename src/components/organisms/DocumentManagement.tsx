@@ -1,4 +1,4 @@
-import { ComboboxProjects } from "@/components/molecules/ComboboxProjects";
+import ComboboxProjects from "@/components/molecules/ComboboxProjects";
 
 interface DocumentManagementProps {
   selectedProject: string;
