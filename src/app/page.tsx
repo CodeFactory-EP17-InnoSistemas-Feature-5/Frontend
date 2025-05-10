@@ -7,7 +7,7 @@ import DocumentView from "@/components/organisms/DocumentView";
 
 export default function Home() {
   return (
-    <div className="mr-40 ml-18 flex flex-col gap-y-2">
+    <div className="mr-40 ml-18 flex flex-col gap-y-5">
       <DocumentManagement />
       <DocumentUpload />
       <DocumentView />
