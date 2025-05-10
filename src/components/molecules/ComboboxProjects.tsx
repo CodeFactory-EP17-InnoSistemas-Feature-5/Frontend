@@ -20,15 +20,20 @@ import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const projects = [
-  { id: 1, name: "Proyecto 1" },
-  { id: 2, name: "Proyecto 2" },
-  { id: 3, name: "Proyecto 3" },
+  { id: 1, name: "Inteligencia Artificial" },
+  { id: 2, name: "Literatura" },
 ];
 
-export function ComboboxProjects() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedProject, setSelectedProject] = React.useState("");
+interface ComboboxProjectsProps {
+  selectedProject: string;
+  setSelectedProject: (project: string) => void;
+}
 
+export function ComboboxProjects({
+  selectedProject,
+  setSelectedProject,
+}: ComboboxProjectsProps) {
+  const [open, setOpen] = React.useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -40,7 +45,7 @@ export function ComboboxProjects() {
         >
           {selectedProject
             ? projects.find((p) => p.name === selectedProject)?.name
-            : "Seleccionar Proyecto..."}
+            : projects[0].name}
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -55,9 +60,7 @@ export function ComboboxProjects() {
                   key={project.id}
                   value={project.name}
                   onSelect={(currentProject) => {
-                    setSelectedProject(
-                      currentProject === selectedProject ? "" : currentProject,
-                    );
+                    setSelectedProject(currentProject);
                     setOpen(false);
                   }}
                 >
