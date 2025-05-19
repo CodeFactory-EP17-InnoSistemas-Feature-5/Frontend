@@ -1,8 +1,8 @@
-import { BellIcon } from "@heroicons/react/24/outline";
+import { Bell } from "lucide-react";
 export default function NotificationBell({
   className,
 }: {
   className?: string;
 }) {
-  return <BellIcon className={`w-6 ${className}`} />;
+  return <Bell className={`${className}`} />;
 }
