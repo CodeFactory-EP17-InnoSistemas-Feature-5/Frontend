@@ -114,7 +114,7 @@ interface DocumentTabsProps {
   selectedProject: string;
 }
 
-const GET_DOCUMENTOS = gql`
+export const GET_DOCUMENTOS = gql`
   query GetDocumentos {
     findAllDocumento {
       id
@@ -144,7 +144,7 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
   const { loading, error, data } = useQuery<DocumentosList>(GET_DOCUMENTOS);
 
   if (loading) {
-    <Loading></Loading>;
+    return <Loading></Loading>;
   }
 
   if (error) {
