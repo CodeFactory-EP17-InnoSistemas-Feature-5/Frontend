@@ -7,10 +7,9 @@ import {
   InMemoryCache,
 } from "@apollo/client-integration-nextjs";
 
-// have a function to create a client for you
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "https://example.com/api/graphql",
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
   });
 
   return new ApolloClient({

@@ -18,11 +18,11 @@ import {
 } from "lucide-react";
 
 interface DocumentInfo {
-  title: string;
-  author: string;
-  uploadDate: string;
-  modifiedDate: string;
-  size: string;
+  nombrearchivo: string;
+  tipodocumento: string;
+  urlubicacion: string;
+  fechasubida: string;
+  ultimamodificacion: string;
 }
 interface CardUserProps {
   document: DocumentInfo;
@@ -35,7 +35,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       <CardHeader className="">
         <CardTitle className="text-2xl">
           <div className="flex w-full items-center justify-between">
-            {document.title}{" "}
+            {document.nombrearchivo}
             {cardVariant === "user" ? (
               <FileText className="min-h-[31px] min-w-[31px]" />
             ) : (
@@ -46,10 +46,10 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       </CardHeader>
       <CardContent>
         <CardInfo
-          author={document.author}
-          uploadDate={document.uploadDate}
-          modifiedDate={document.modifiedDate}
-          size={document.size}
+          author={"Wilmer Soto"}
+          uploadDate={document.fechasubida}
+          modifiedDate={document.ultimamodificacion}
+          size={"1.8"}
         ></CardInfo>
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
