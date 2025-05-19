@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenuTrigger,
   DropdownMenu,
@@ -7,8 +8,11 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import NotificationBell from "@/components/atoms/NotificationBell";
+import { useNotification } from "@/components/contexts/NotificationContext";
+import { Check, CircleX } from "lucide-react";
 
 export default function DropdownNotification() {
+  //const { notifications, removeNotification } = useNotification();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,6 +23,7 @@ export default function DropdownNotification() {
           Notificaciones
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         <DropdownMenuItem>Notificacion 1</DropdownMenuItem>
         <DropdownMenuItem>Notificacion 2</DropdownMenuItem>
       </DropdownMenuContent>

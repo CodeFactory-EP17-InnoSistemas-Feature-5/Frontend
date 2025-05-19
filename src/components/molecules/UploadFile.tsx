@@ -22,8 +22,7 @@ const CREATE_DOCUMENT = gql`
 `;
 
 export default function UploadFile() {
-  const { notifications, addNotification, removeNotification } =
-    useNotification() || {};
+  const { addNotification } = useNotification();
   const [documentName, setDocumentName] = useState("");
   const [createDocument, { loading, error, data }] = useMutation(
     CREATE_DOCUMENT,
