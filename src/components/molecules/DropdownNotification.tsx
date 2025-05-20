@@ -13,8 +13,6 @@ import { Check, CircleX } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function DropdownNotification() {
-  const removeDropdownItem = () => {};
-
   const { notifications, removeNotification } = useNotification();
   return (
     <DropdownMenu>
