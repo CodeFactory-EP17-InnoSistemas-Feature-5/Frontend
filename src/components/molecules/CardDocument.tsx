@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -16,26 +18,66 @@ import {
   FileText,
   Boxes,
 } from "lucide-react";
+import { gql, useMutation } from "@apollo/client";
+import { useNotification } from "@/components/contexts/NotificationContext";
+import DeleteAlert from "@/components/molecules/DeleteAlert";
 
 interface DocumentInfo {
-  title: string;
-  author: string;
-  uploadDate: string;
-  modifiedDate: string;
-  size: string;
+  id: string;
+  nombrearchivo: string;
+  tipodocumento: string;
+  urlubicacion: string;
+  fechasubida: string;
+  ultimamodificacion: string;
 }
 interface CardUserProps {
   document: DocumentInfo;
   cardVariant: "user" | "teacher";
 }
 
+const DELETE_DOCUMENT = gql`
+  mutation DeleteDocumento($id: ID!) {
+    deleteDocumento(id: $id)
+  }
+`;
+
 export default function CardDocument({ document, cardVariant }: CardUserProps) {
+  const { addNotification } = useNotification();
+
+  const [deleteDocument, { loading, error, data }] = useMutation(
+    DELETE_DOCUMENT,
+    {
+      refetchQueries: ["GetDocumentos"],
+      onCompleted: (data) => {
+        if (data.deleteDocumento) {
+          addNotification({
+            title: "ÉXITO",
+            variant: "success",
+            description: `Documento "${document.nombrearchivo}" eliminado exitosamente.`,
+          });
+        }
+      },
+    },
+  );
+
+  const handleDelete = async () => {
+    try {
+      await deleteDocument({ variables: { id: document.id } });
+    } catch (e) {
+      addNotification({
+        title: "ERROR",
+        variant: "error",
+        description: `Error borrando archivo: ${e}`,
+      });
+    }
+  };
+
   return (
     <Card className="mt-2 flex h-full min-h-[307px] min-w-[396px] flex-none flex-col rounded-sm">
       <CardHeader className="">
         <CardTitle className="text-2xl">
           <div className="flex w-full items-center justify-between">
-            {document.title}{" "}
+            {document.nombrearchivo}
             {cardVariant === "user" ? (
               <FileText className="min-h-[31px] min-w-[31px]" />
             ) : (
@@ -46,10 +88,10 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       </CardHeader>
       <CardContent>
         <CardInfo
-          author={document.author}
-          uploadDate={document.uploadDate}
-          modifiedDate={document.modifiedDate}
-          size={document.size}
+          author={"Wilmer Soto"}
+          uploadDate={document.fechasubida}
+          modifiedDate={document.ultimamodificacion}
+          size={"1.8"}
         ></CardInfo>
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
@@ -82,13 +124,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         </div>
         <div className="flex w-full">
           {cardVariant === "user" && (
-            <Button
-              variant={"outline"}
-              className="w-full border-2 border-gray-400 font-semibold text-red-500 hover:bg-red-400 hover:text-black"
-            >
-              <Trash2 />
-              Eliminar
-            </Button>
+            <DeleteAlert onConfirmDelete={handleDelete}></DeleteAlert>
           )}
           {cardVariant === "teacher" && (
             <Button

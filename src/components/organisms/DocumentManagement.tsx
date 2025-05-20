@@ -1,23 +1,20 @@
-import ComboboxProjects from "@/components/molecules/ComboboxProjects";
+"use client";
 
-interface DocumentManagementProps {
-  selectedProject: string;
-  setSelectedProject: (project: string) => void;
-}
+import DocumentFilter from "@/components/organisms/DocumentFilter";
+import DocumentUpload from "@/components/organisms/DocumentUpload";
+import DocumentView from "@/components/organisms/DocumentView";
+import React from "react";
 
-export default function DocumentManagement({
-  selectedProject,
-  setSelectedProject,
-}: DocumentManagementProps) {
+export default function DocumentManagement() {
+  const [selectedProject, setSelectedProject] = React.useState("");
   return (
-    <div>
-      <h1 className="mb-3 text-base font-semibold sm:text-2xl">
-        Gestión de Documentos
-      </h1>
-      <ComboboxProjects
+    <>
+      <DocumentFilter
         selectedProject={selectedProject}
         setSelectedProject={setSelectedProject}
-      ></ComboboxProjects>
-    </div>
+      />
+      <DocumentUpload />
+      <DocumentView selectedProject={selectedProject} />
+    </>
   );
 }
