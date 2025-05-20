@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -16,8 +18,11 @@ import {
   FileText,
   Boxes,
 } from "lucide-react";
+import { gql, useMutation } from "@apollo/client";
+import { useNotification } from "@/components/contexts/NotificationContext";
 
 interface DocumentInfo {
+  id: string;
   nombrearchivo: string;
   tipodocumento: string;
   urlubicacion: string;
@@ -29,7 +34,49 @@ interface CardUserProps {
   cardVariant: "user" | "teacher";
 }
 
+const DELETE_DOCUMENT = gql`
+  mutation DeleteDocumento($id: ID!) {
+    deleteDocumento(id: $id)
+  }
+`;
+
 export default function CardDocument({ document, cardVariant }: CardUserProps) {
+  const { addNotification } = useNotification();
+
+  const [deleteDocument, { loading, error, data }] = useMutation(
+    DELETE_DOCUMENT,
+    {
+      refetchQueries: ["GetDocumentos"],
+      onCompleted: (data) => {
+        if (data.deleteDocumento) {
+          addNotification({
+            title: "ÉXITO",
+            variant: "success",
+            description: `Documento "${document.nombrearchivo}" eliminado exitosamente.`,
+          });
+        }
+      },
+    },
+  );
+
+  const handleDelete = async () => {
+    if (
+      window.confirm(
+        `¿Estás seguro de que quieres eliminar "${document.nombrearchivo}"?`,
+      )
+    ) {
+      try {
+        await deleteDocument({ variables: { id: document.id } });
+      } catch (e) {
+        addNotification({
+          title: "ERROR",
+          variant: "error",
+          description: `Error borrando archivo: ${e}`,
+        });
+      }
+    }
+  };
+
   return (
     <Card className="mt-2 flex h-full min-h-[307px] min-w-[396px] flex-none flex-col rounded-sm">
       <CardHeader className="">
@@ -85,6 +132,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
             <Button
               variant={"outline"}
               className="w-full border-2 border-gray-400 font-semibold text-red-500 hover:bg-red-400 hover:text-black"
+              onClick={handleDelete}
             >
               <Trash2 />
               Eliminar
