@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { gql, useMutation } from "@apollo/client";
 import { useNotification } from "@/components/contexts/NotificationContext";
+import DeleteAlert from "@/components/molecules/DeleteAlert";
 
 interface DocumentInfo {
   id: string;
@@ -60,20 +61,14 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
   );
 
   const handleDelete = async () => {
-    if (
-      window.confirm(
-        `¿Estás seguro de que quieres eliminar "${document.nombrearchivo}"?`,
-      )
-    ) {
-      try {
-        await deleteDocument({ variables: { id: document.id } });
-      } catch (e) {
-        addNotification({
-          title: "ERROR",
-          variant: "error",
-          description: `Error borrando archivo: ${e}`,
-        });
-      }
+    try {
+      await deleteDocument({ variables: { id: document.id } });
+    } catch (e) {
+      addNotification({
+        title: "ERROR",
+        variant: "error",
+        description: `Error borrando archivo: ${e}`,
+      });
     }
   };
 
@@ -129,14 +124,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         </div>
         <div className="flex w-full">
           {cardVariant === "user" && (
-            <Button
-              variant={"outline"}
-              className="w-full border-2 border-gray-400 font-semibold text-red-500 hover:bg-red-400 hover:text-black"
-              onClick={handleDelete}
-            >
-              <Trash2 />
-              Eliminar
-            </Button>
+            <DeleteAlert onConfirmDelete={handleDelete}></DeleteAlert>
           )}
           {cardVariant === "teacher" && (
             <Button
