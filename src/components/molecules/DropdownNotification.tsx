@@ -17,11 +17,16 @@ export default function DropdownNotification() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} size={"icon"}>
+        <Button variant={"ghost"} size={"icon"} className="relative">
           <NotificationBell className="min-h-[20px] min-w-[20px]" />
+          {notifications.length > 0 && (
+            <span className="absolute top-0 right-0 rounded-full bg-red-500 px-1 py-0.5 text-xs text-white">
+              {notifications.length}
+            </span>
+          )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="max-h-[400px] w-56">
         <DropdownMenuLabel className="font-bold">
           Notificaciones
         </DropdownMenuLabel>
