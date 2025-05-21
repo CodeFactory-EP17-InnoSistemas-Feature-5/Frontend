@@ -1,5 +1,4 @@
 import UserHeader from "@/components/organisms/UserHeader";
-import DropdownUser from "../molecules/DropdownUser";
 
 export default function Header() {
   return (

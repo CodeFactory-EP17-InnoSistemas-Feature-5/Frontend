@@ -1,5 +1,3 @@
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import UploadFile from "@/components/molecules/UploadFile";
 
 export default function DocumentUpload() {

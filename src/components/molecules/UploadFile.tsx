@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { gql, useMutation } from "@apollo/client";
 import { useRef, useState } from "react";
 import { useNotification } from "@/components/contexts/NotificationContext";
-import { title } from "process";
 
 const CREATE_DOCUMENT = gql`
   mutation CreateDocumento($documentoInput: DocumentoInput!) {
@@ -26,12 +25,9 @@ export default function UploadFile() {
   const [documentName, setDocumentName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [createDocument, { loading, error, data }] = useMutation(
-    CREATE_DOCUMENT,
-    {
-      refetchQueries: ["GetDocumentos"],
-    },
-  );
+  const [createDocument] = useMutation(CREATE_DOCUMENT, {
+    refetchQueries: ["GetDocumentos"],
+  });
   const MAX_FILE_SIZE_MB = 15;
   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
@@ -104,11 +100,11 @@ export default function UploadFile() {
       });
       setDocumentName("");
       clearFileInput();
-    } catch (e: any) {
+    } catch (e) {
       addNotification({
         title: "ERROR",
         variant: "error",
-        description: `Error: ${e.message}`,
+        description: `Error: ${e}`,
       });
     }
   };

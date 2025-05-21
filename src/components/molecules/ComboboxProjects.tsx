@@ -39,7 +39,7 @@ export default function ComboboxProjects({
     if (!selectedProject) {
       setSelectedProject(projects[0].name);
     }
-  }, []);
+  });
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

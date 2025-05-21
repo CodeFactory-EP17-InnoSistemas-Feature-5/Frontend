@@ -2,7 +2,6 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CardDocument from "@/components/molecules/CardDocument";
-import { useMemo } from "react";
 import { gql, useQuery } from "@apollo/client";
 import Loading from "@/app/loading";
 
@@ -110,9 +109,9 @@ import Loading from "@/app/loading";
 //   },
 // ];
 
-interface DocumentTabsProps {
-  selectedProject: string;
-}
+// interface DocumentTabsProps {
+//   selectedProject: string;
+// }
 
 export const GET_DOCUMENTOS = gql`
   query GetDocumentos {
@@ -140,7 +139,8 @@ interface DocumentosList {
   findAllDocumento: Documento[];
 }
 
-export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
+// selectedProject cuando se necesite filtran por proyecto.
+export default function DocumentTabs() {
   const { loading, error, data } = useQuery<DocumentosList>(GET_DOCUMENTOS);
 
   if (loading) {

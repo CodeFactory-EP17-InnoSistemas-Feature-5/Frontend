@@ -3,21 +3,13 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import CardInfo from "@/components/molecules/CardInfo";
 import { Button } from "@/components/ui/button";
-import {
-  Download,
-  SquarePen,
-  Trash2,
-  Share2,
-  FileText,
-  Boxes,
-} from "lucide-react";
+import { Download, SquarePen, Share2, FileText, Boxes } from "lucide-react";
 import { gql, useMutation } from "@apollo/client";
 import { useNotification } from "@/components/contexts/NotificationContext";
 import DeleteAlert from "@/components/molecules/DeleteAlert";
@@ -44,21 +36,18 @@ const DELETE_DOCUMENT = gql`
 export default function CardDocument({ document, cardVariant }: CardUserProps) {
   const { addNotification } = useNotification();
 
-  const [deleteDocument, { loading, error, data }] = useMutation(
-    DELETE_DOCUMENT,
-    {
-      refetchQueries: ["GetDocumentos"],
-      onCompleted: (data) => {
-        if (data.deleteDocumento) {
-          addNotification({
-            title: "ÉXITO",
-            variant: "success",
-            description: `Documento "${document.nombrearchivo}" eliminado exitosamente.`,
-          });
-        }
-      },
+  const [deleteDocument] = useMutation(DELETE_DOCUMENT, {
+    refetchQueries: ["GetDocumentos"],
+    onCompleted: (data) => {
+      if (data.deleteDocumento) {
+        addNotification({
+          title: "ÉXITO",
+          variant: "success",
+          description: `Documento "${document.nombrearchivo}" eliminado exitosamente.`,
+        });
+      }
     },
-  );
+  });
 
   const handleDelete = async () => {
     try {
