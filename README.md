@@ -2,8 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Deploy link
 
-https://innosistemas-feature-5-lc2dbmjqj-wilmersotos-projects.vercel.app/https://innosistemas-feature-5-lc2dbmjqj-wilmersotos-projects.vercel.app/
-
+https://innosistemas-feature-5-lc2dbmjqj-wilmersotos-projects.vercel.app/
 ## Getting Started
 
 First, run the development server:
