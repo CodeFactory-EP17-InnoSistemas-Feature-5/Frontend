@@ -20,9 +20,39 @@ export const GET_DOCUMENTOS = gql`
   }
 `;
 
+export const GET_ENTREGAS = gql`
+  query GetEntregas {
+    findAllEntrega {
+      id
+      fechaentrega
+
+      documento {
+        id
+        nombrearchivo
+        tipodocumento
+        urlubicacion
+        fechasubida
+        ultimamodificacion
+        tamanoarchivo
+      }
+
+      proyecto {
+        id
+        nombreproyecto
+      }
+
+      usuario {
+        id
+        nombreusuario
+        rol
+      }
+    }
+  }
+`;
+
 export const GET_USER = gql`
-  query GetUser {
-    findUsuarioById(id: "1") {
+  query GetUser($id: ID!) {
+    findUsuarioById(id: $id) {
       id
       correo
       nombreusuario

@@ -14,7 +14,7 @@ export default function DocumentManagement() {
         setSelectedProject={setSelectedProject}
       />
       <DocumentUpload />
-      <DocumentView />
+      <DocumentView selectedProject={selectedProject} />
     </>
   );
 }

@@ -14,21 +14,14 @@ import { useMutation } from "@apollo/client";
 import { useNotification } from "@/components/contexts/NotificationContext";
 import DeleteAlert from "@/components/molecules/DeleteAlert";
 import { DELETE_DOCUMENT } from "@/lib/ApolloQueries";
+import { Entrega } from "@/lib/Interfaces";
 
-interface DocumentInfo {
-  id: string;
-  nombrearchivo: string;
-  tipodocumento: string;
-  urlubicacion: string;
-  fechasubida: string;
-  ultimamodificacion: string;
-}
 interface CardUserProps {
-  document: DocumentInfo;
+  entrega: Entrega;
   cardVariant: "student" | "teacher";
 }
 
-export default function CardDocument({ document, cardVariant }: CardUserProps) {
+export default function CardDocument({ entrega, cardVariant }: CardUserProps) {
   const { addNotification } = useNotification();
 
   const [deleteDocument] = useMutation(DELETE_DOCUMENT, {
@@ -38,7 +31,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         addNotification({
           title: "ÉXITO",
           variant: "success",
-          description: `Documento "${document.nombrearchivo}" eliminado exitosamente.`,
+          description: `Documento "${entrega.documento.nombrearchivo}" eliminado exitosamente.`,
         });
       }
     },
@@ -46,7 +39,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
 
   const handleDelete = async () => {
     try {
-      await deleteDocument({ variables: { id: document.id } });
+      await deleteDocument({ variables: { id: entrega.id } });
     } catch (e) {
       addNotification({
         title: "ERROR",
@@ -61,7 +54,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       <CardHeader className="">
         <CardTitle className="text-2xl">
           <div className="flex w-full items-center justify-between">
-            {document.nombrearchivo}
+            {entrega.documento.nombrearchivo}
             {cardVariant === "student" ? (
               <FileText className="min-h-[31px] min-w-[31px]" />
             ) : (
@@ -72,10 +65,10 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       </CardHeader>
       <CardContent>
         <CardInfo
-          author={"Wilmer Soto"}
-          uploadDate={document.fechasubida}
-          modifiedDate={document.ultimamodificacion}
-          size={"1.8"}
+          author={entrega.usuario.nombreusuario}
+          uploadDate={entrega.documento.fechasubida}
+          modifiedDate={entrega.documento.ultimamodificacion}
+          size={entrega.documento.tamanoarchivo}
         ></CardInfo>
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
