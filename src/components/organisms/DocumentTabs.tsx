@@ -30,20 +30,27 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
   });
   const user = userData?.findUsuarioById;
 
-  const filteredEntregas = useMemo(() => {
-    let userEntregas = entregas;
+  const filteredProyectoEntregas = useMemo(() => {
+    let proyectoEntregas = entregas;
 
     if (selectedProject) {
-      userEntregas = userEntregas.filter(
+      proyectoEntregas = proyectoEntregas.filter(
         (e) => e.proyecto.nombreproyecto === selectedProject,
       );
     }
+    return proyectoEntregas;
+  }, [entregas, selectedProject]);
 
-    if (user) {
-      userEntregas = userEntregas.filter((e) => e.usuario.id === user.id);
+  const filteredUserEntregas = useMemo(() => {
+    let userEntregas = filteredProyectoEntregas;
+
+    if (selectedProject) {
+      userEntregas = userEntregas.filter(
+        (e) => e.usuario.nombreusuario === user?.nombreusuario,
+      );
     }
     return userEntregas;
-  }, [entregas, selectedProject, user]);
+  }, [entregas, user]);
 
   if (entregasLoading || userLoading) {
     return <Loading />;
@@ -65,8 +72,8 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
       </TabsList>
       <TabsContent value="all">
         <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
-          {filteredEntregas.length > 0 ? (
-            filteredEntregas.map((entrega) => {
+          {filteredProyectoEntregas.length > 0 ? (
+            filteredProyectoEntregas.map((entrega) => {
               return (
                 <CardDocument
                   key={entrega.id}
@@ -83,14 +90,14 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
         </div>
       </TabsContent>
       <TabsContent value="user">
-        {/* <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
-          {filteredDocumentsUser.length > 0 ? (
-            filteredDocumentsUser.map((document) => {
+        <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
+          {filteredUserEntregas.length > 0 ? (
+            filteredUserEntregas.map((entrega) => {
               return (
                 <CardDocument
-                  key={document.id}
-                  document={document}
-                  cardVariant={document.variant as "user" | "teacher"}
+                  key={entrega.id}
+                  entrega={entrega}
+                  cardVariant={entrega.usuario.rol as "student" | "teacher"}
                 />
               );
             })
@@ -99,7 +106,7 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
               No se encontraron documentos para el proyecto seleccionado.
             </p>
           )}
-        </div> */}
+        </div>
       </TabsContent>
     </Tabs>
   );
