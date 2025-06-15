@@ -10,9 +10,10 @@ import {
 import CardInfo from "@/components/molecules/CardInfo";
 import { Button } from "@/components/ui/button";
 import { Download, SquarePen, Share2, FileText, Boxes } from "lucide-react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNotification } from "@/components/contexts/NotificationContext";
 import DeleteAlert from "@/components/molecules/DeleteAlert";
+import { DELETE_DOCUMENT } from "@/lib/ApolloQueries";
 
 interface DocumentInfo {
   id: string;
@@ -24,14 +25,8 @@ interface DocumentInfo {
 }
 interface CardUserProps {
   document: DocumentInfo;
-  cardVariant: "user" | "teacher";
+  cardVariant: "student" | "teacher";
 }
-
-const DELETE_DOCUMENT = gql`
-  mutation DeleteDocumento($id: ID!) {
-    deleteDocumento(id: $id)
-  }
-`;
 
 export default function CardDocument({ document, cardVariant }: CardUserProps) {
   const { addNotification } = useNotification();
@@ -67,7 +62,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
         <CardTitle className="text-2xl">
           <div className="flex w-full items-center justify-between">
             {document.nombrearchivo}
-            {cardVariant === "user" ? (
+            {cardVariant === "student" ? (
               <FileText className="min-h-[31px] min-w-[31px]" />
             ) : (
               <Boxes className="min-h-[31px] min-w-[31px] stroke-[1.5]" />
@@ -85,7 +80,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
         <div className="flex min-h-10 w-full justify-between">
-          {cardVariant === "user" && (
+          {cardVariant === "student" && (
             <>
               <Button
                 variant={"outline"}
@@ -112,7 +107,7 @@ export default function CardDocument({ document, cardVariant }: CardUserProps) {
           )}
         </div>
         <div className="flex w-full">
-          {cardVariant === "user" && (
+          {cardVariant === "student" && (
             <DeleteAlert onConfirmDelete={handleDelete}></DeleteAlert>
           )}
           {cardVariant === "teacher" && (

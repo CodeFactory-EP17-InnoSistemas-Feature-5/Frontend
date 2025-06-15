@@ -18,15 +18,22 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const projects = [
-  { id: 1, name: "Inteligencia Artificial" },
-  { id: 2, name: "Literatura" },
-];
+import { GET_PROYECTOS } from "@/lib/ApolloQueries";
+import { useQuery } from "@apollo/client";
+import Loading from "@/app/loading";
 
 interface ComboboxProjectsProps {
   selectedProject: string;
   setSelectedProject: (project: string) => void;
+}
+
+interface Proyecto {
+  id: string;
+  nombreproyecto: string;
+}
+
+interface ProyectoList {
+  findAllProyecto: Proyecto[];
 }
 
 export default function ComboboxProjects({
@@ -34,12 +41,26 @@ export default function ComboboxProjects({
   setSelectedProject,
 }: ComboboxProjectsProps) {
   const [open, setOpen] = React.useState(false);
-
+  const { loading, error, data } = useQuery<ProyectoList>(GET_PROYECTOS);
   useEffect(() => {
-    if (!selectedProject) {
-      setSelectedProject(projects[0].name);
+    if (!selectedProject && data && data.findAllProyecto.length > 0) {
+      const proyectosData = data.findAllProyecto;
+      setSelectedProject(proyectosData[0].nombreproyecto);
     }
-  });
+  }, [data]);
+
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  if (error) {
+    return (
+      <div className="py-4 text-red-500">
+        Error cargando los datos: {error.message}
+      </div>
+    );
+  }
+  const proyectosData = data?.findAllProyecto || [];
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,8 +72,9 @@ export default function ComboboxProjects({
           className="w-[220px] justify-between"
         >
           {selectedProject
-            ? projects.find((p) => p.name === selectedProject)?.name
-            : projects[0].name}
+            ? proyectosData.find((p) => p.nombreproyecto === selectedProject)
+                ?.nombreproyecto
+            : proyectosData[0].nombreproyecto}
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -62,20 +84,20 @@ export default function ComboboxProjects({
           <CommandList>
             <CommandEmpty>No se encontro proyecto con el nombre</CommandEmpty>
             <CommandGroup>
-              {projects.map((project) => (
+              {proyectosData.map((project) => (
                 <CommandItem
                   key={project.id}
-                  value={project.name}
+                  value={project.nombreproyecto}
                   onSelect={(currentProject) => {
                     setSelectedProject(currentProject);
                     setOpen(false);
                   }}
                 >
-                  {project.name}
+                  {project.nombreproyecto}
                   <Check
                     className={cn(
                       "ml-auto",
-                      selectedProject === project.name
+                      selectedProject === project.nombreproyecto
                         ? "opacity-100"
                         : "opacity-0",
                     )}

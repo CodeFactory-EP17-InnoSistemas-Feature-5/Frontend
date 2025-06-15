@@ -2,8 +2,9 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CardDocument from "@/components/molecules/CardDocument";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Loading from "@/app/loading";
+import { GET_DOCUMENTOS } from "@/lib/ApolloQueries";
 
 // const documents = [
 //   {
@@ -113,22 +114,10 @@ import Loading from "@/app/loading";
 //   selectedProject: string;
 // }
 
-export const GET_DOCUMENTOS = gql`
-  query GetDocumentos {
-    findAllDocumento {
-      id
-      fechasubida
-      ultimamodificacion
-      nombrearchivo
-      tipodocumento
-      urlubicacion
-    }
-  }
-`;
-
 interface Documento {
   id: string;
   nombrearchivo: string;
+  tamanoarchivo: string;
   tipodocumento: string;
   urlubicacion: string;
   fechasubida: string;
@@ -179,7 +168,7 @@ export default function DocumentTabs() {
                 <CardDocument
                   key={document.id}
                   document={document}
-                  cardVariant={"user"}
+                  cardVariant={"student"}
                 />
               );
             })
