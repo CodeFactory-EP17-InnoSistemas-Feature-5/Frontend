@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         destination:
           process.env.GRAPHQL_BACKEND_URL || "http://localhost:8080/graphql",
       },
+      {
+        source: "/api/files/:path*",
+        destination: `${process.env.REST_BACKEND_URL || "http://localhost:8080"}/api/files/:path*`,
+      },
     ];
   },
 };

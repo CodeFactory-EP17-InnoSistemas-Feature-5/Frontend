@@ -23,11 +23,6 @@ import { useQuery } from "@apollo/client";
 import Loading from "@/app/loading";
 import { useSelectedProject } from "@/components/contexts/SelectedProjectContext";
 
-interface ComboboxProjectsProps {
-  selectedProject: string;
-  setSelectedProject: (project: string) => void;
-}
-
 interface Proyecto {
   id: string;
   nombreproyecto: string;

@@ -5,14 +5,12 @@ import CardDocument from "@/components/molecules/CardDocument";
 import { useQuery } from "@apollo/client";
 import Loading from "@/app/loading";
 import { GET_ENTREGAS, GET_USER } from "@/lib/ApolloQueries";
-import { EntregasList, GetUsuario, Proyecto, Usuario } from "@/lib/Interfaces";
+import { EntregasList, GetUsuario } from "@/lib/Interfaces";
 import { useMemo } from "react";
+import { useSelectedProject } from "@/components/contexts/SelectedProjectContext";
 
-interface DocumentTabsProps {
-  selectedProject: string;
-}
-
-export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
+export default function DocumentTabs() {
+  const { selectedProjectId, setSelectedProjectId } = useSelectedProject();
   const {
     loading: entregasLoading,
     error: entregasError,
@@ -31,18 +29,18 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
   const filteredProyectoEntregas = useMemo(() => {
     let proyectoEntregas = entregas;
 
-    if (selectedProject) {
+    if (selectedProjectId) {
       proyectoEntregas = proyectoEntregas.filter(
-        (e) => e.proyecto.nombreproyecto === selectedProject,
+        (e) => e.proyecto.id === selectedProjectId,
       );
     }
     return proyectoEntregas;
-  }, [entregas, selectedProject]);
+  }, [entregas, selectedProjectId]);
 
   const filteredUserEntregas = useMemo(() => {
     let userEntregas = filteredProyectoEntregas;
 
-    if (selectedProject) {
+    if (selectedProjectId) {
       userEntregas = userEntregas.filter(
         (e) => e.usuario.nombreusuario === user?.nombreusuario,
       );

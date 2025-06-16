@@ -82,11 +82,6 @@ export const CREATE_ENTREGA = gql`
   mutation CreateEntrega($entregaInput: EntregaInput!) {
     createEntrega(entregaInput: $entregaInput) {
       id
-      nombrearchivo
-      tipodocumento
-      urlubicacion
-      fechasubida
-      ultimamodificacion
     }
   }
 `;

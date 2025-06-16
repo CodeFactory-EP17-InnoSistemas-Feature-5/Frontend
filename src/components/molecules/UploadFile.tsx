@@ -3,16 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRef, useState } from "react";
 import { useNotification } from "@/components/contexts/NotificationContext";
-import { CREATE_DOCUMENT, CREATE_ENTREGA } from "@/lib/ApolloQueries";
+import { CREATE_DOCUMENT, CREATE_ENTREGA, GET_USER } from "@/lib/ApolloQueries";
+import { useSelectedProject } from "@/components/contexts/SelectedProjectContext";
+import { GetUsuario } from "@/lib/Interfaces";
 
-interface UploadFileProps {
-  selectedProject: string;
-}
-
-export default function UploadFile({ selectedProject }: UploadFileProps) {
+export default function UploadFile() {
+  const { selectedProjectId } = useSelectedProject();
   const { addNotification } = useNotification();
   const [documentName, setDocumentName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -23,6 +22,8 @@ export default function UploadFile({ selectedProject }: UploadFileProps) {
   const [createEntrega] = useMutation(CREATE_ENTREGA, {
     refetchQueries: ["GetEntregas"],
   });
+  const { data: userData } = useQuery<GetUsuario>(GET_USER);
+  const userId = userData?.findUsuarioById.id;
   const MAX_FILE_SIZE_MB = 15;
   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
@@ -75,9 +76,26 @@ export default function UploadFile({ selectedProject }: UploadFileProps) {
       return;
     }
 
-    let tamaño = (selectedFile.size / (1024 * 1024)).toString();
-
     try {
+      // Activar cuando funcione Firebase. No se esta configurado el bucket a usar.
+      // const formData = new FormData();
+      // formData.append("file", selectedFile);
+
+      // const response = await fetch("/api/files/upload", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+
+      // if (!response.ok) {
+      //   const errorText = await response.text();
+      //   throw new Error(
+      //     `Error al subir el archivo: ${response.status} - ${errorText}`,
+      //   );
+      // }
+
+      // const url = await response.text();
+      let tamaño = (selectedFile.size / (1024 * 1024)).toFixed(2).toString();
+      console.log("tamaño", tamaño);
       let currentDate = new Date().toLocaleDateString("es-co");
       const { data: documentData } = await createDocument({
         variables: {
@@ -88,16 +106,17 @@ export default function UploadFile({ selectedProject }: UploadFileProps) {
             ultimamodificacion: currentDate,
             tipodocumento:
               selectedFile.type === "application/pdf" ? "PDF" : "DOCX",
-            urlubicacion: "www.urldescarga.com/doc-x",
+            urlubicacion: "www.url-ejemplo.com",
           },
         },
       });
       await createEntrega({
         variables: {
           entregaInput: {
-            documento: documentData.id,
-            fechaEntrega: currentDate,
-            proyecto: selectedProject,
+            documento: documentData.createDocumento.id,
+            fechaentrega: currentDate,
+            proyecto: selectedProjectId,
+            usuario: userId,
           },
         },
       });
