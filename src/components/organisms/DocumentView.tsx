@@ -3,7 +3,7 @@ import DocumentTabs from "@/components/organisms/DocumentTabs";
 
 export default function DocumentView() {
   return (
-    <div className="">
+    <div>
       <Header1>Documentos del proyecto</Header1>
       <DocumentTabs></DocumentTabs>
     </div>

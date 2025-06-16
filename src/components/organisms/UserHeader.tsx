@@ -10,10 +10,10 @@ export default function UserHeader() {
   const { data: userData } = useQuery<GetUsuario>(GET_USER);
   const user = userData?.findUsuarioById;
   return (
-    <div className="flex items-center justify-center pr-3">
+    <div className="flex items-center pr-3">
       <DropdownNotification />
-      <p className="mr-15 ml-5 hidden font-medium sm:inline-block">
-        Hola, &lt;&lt;{user?.nombreusuario}&gt;&gt;
+      <p className="mr-5 ml-5 hidden text-center text-sm font-medium md:inline-block lg:mr-15 lg:text-base">
+        Hola, <br /> &lt;&lt;{user?.nombreusuario}&gt;&gt;
       </p>
       <DropdownUser />
     </div>

@@ -17,7 +17,11 @@ export default function DropdownNotification() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} size={"icon"} className="relative">
+        <Button
+          variant={"ghost"}
+          size={"icon"}
+          className="relative mr-10 sm:mr-0"
+        >
           <NotificationBell className="min-h-[20px] min-w-[20px]" />
           {notifications.length > 0 && (
             <span className="absolute top-0 right-0 rounded-full bg-red-500 px-1 py-0.5 text-xs text-white">
