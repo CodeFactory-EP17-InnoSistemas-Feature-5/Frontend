@@ -1,8 +1,14 @@
 import { gql, useMutation } from "@apollo/client";
 
-export const DELETE_DOCUMENT = gql`
+export const DELETE_DOCUMENTO = gql`
   mutation DeleteDocumento($id: ID!) {
     deleteDocumento(id: $id)
+  }
+`;
+
+export const DELETE_ENTREGA = gql`
+  mutation DeleteEntrega($id: ID!) {
+    deleteEntrega(id: $id)
   }
 `;
 

@@ -13,7 +13,11 @@ import { Download, SquarePen, Share2, FileText, Boxes } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { useNotification } from "@/components/contexts/NotificationContext";
 import DeleteAlert from "@/components/molecules/DeleteAlert";
-import { DELETE_DOCUMENT } from "@/lib/ApolloQueries";
+import {
+  DELETE_DOCUMENTO,
+  DELETE_ENTREGA,
+  GET_ENTREGAS,
+} from "@/lib/ApolloQueries";
 import { Entrega } from "@/lib/Interfaces";
 
 interface CardUserProps {
@@ -29,8 +33,9 @@ export default function CardDocument({
 }: CardUserProps) {
   const { addNotification } = useNotification();
 
-  const [deleteDocument] = useMutation(DELETE_DOCUMENT, {
-    refetchQueries: ["GetDocumentos"],
+  const [deleteEntrega] = useMutation(DELETE_ENTREGA);
+  const [deleteDocumento] = useMutation(DELETE_DOCUMENTO, {
+    refetchQueries: [GET_ENTREGAS],
     onCompleted: (data) => {
       if (data.deleteDocumento) {
         addNotification({
@@ -44,7 +49,8 @@ export default function CardDocument({
 
   const handleDelete = async () => {
     try {
-      await deleteDocument({ variables: { id: entrega.id } });
+      await deleteEntrega({ variables: { id: entrega.id } });
+      await deleteDocumento({ variables: { id: entrega.documento.id } });
     } catch (e) {
       addNotification({
         title: "ERROR",
