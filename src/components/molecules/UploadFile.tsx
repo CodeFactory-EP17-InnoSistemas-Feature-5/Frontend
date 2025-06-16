@@ -94,9 +94,9 @@ export default function UploadFile() {
       // }
 
       // const url = await response.text();
-      let tamaño = (selectedFile.size / (1024 * 1024)).toFixed(2).toString();
+      const tamaño = (selectedFile.size / (1024 * 1024)).toFixed(2).toString();
       console.log("tamaño", tamaño);
-      let currentDate = new Date().toLocaleDateString("es-co");
+      const currentDate = new Date().toLocaleDateString("es-co");
       const { data: documentData } = await createDocument({
         variables: {
           documentoInput: {
