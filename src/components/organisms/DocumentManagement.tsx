@@ -6,15 +6,11 @@ import DocumentView from "@/components/organisms/DocumentView";
 import React from "react";
 
 export default function DocumentManagement() {
-  const [selectedProject, setSelectedProject] = React.useState("");
   return (
     <>
-      <DocumentFilter
-        selectedProject={selectedProject}
-        setSelectedProject={setSelectedProject}
-      />
+      <DocumentFilter />
       <DocumentUpload />
-      <DocumentView selectedProject={selectedProject} />
+      <DocumentView />
     </>
   );
 }

@@ -25,9 +25,7 @@ export default function DocumentTabs({ selectedProject }: DocumentTabsProps) {
     loading: userLoading,
     error: userError,
     data: userData,
-  } = useQuery<GetUsuario>(GET_USER, {
-    variables: { id: 1 },
-  });
+  } = useQuery<GetUsuario>(GET_USER);
   const user = userData?.findUsuarioById;
 
   const filteredProyectoEntregas = useMemo(() => {

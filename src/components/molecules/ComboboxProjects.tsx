@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { GET_PROYECTOS } from "@/lib/ApolloQueries";
 import { useQuery } from "@apollo/client";
 import Loading from "@/app/loading";
+import { useSelectedProject } from "@/components/contexts/SelectedProjectContext";
 
 interface ComboboxProjectsProps {
   selectedProject: string;
@@ -36,16 +37,14 @@ interface ProyectoList {
   findAllProyecto: Proyecto[];
 }
 
-export default function ComboboxProjects({
-  selectedProject,
-  setSelectedProject,
-}: ComboboxProjectsProps) {
+export default function ComboboxProjects() {
   const [open, setOpen] = React.useState(false);
+  const { selectedProjectId, setSelectedProjectId } = useSelectedProject();
   const { loading, error, data } = useQuery<ProyectoList>(GET_PROYECTOS);
   useEffect(() => {
-    if (!selectedProject && data && data.findAllProyecto.length > 0) {
+    if (!selectedProjectId && data && data.findAllProyecto.length > 0) {
       const proyectosData = data.findAllProyecto;
-      setSelectedProject(proyectosData[0].nombreproyecto);
+      setSelectedProjectId(proyectosData[0].id);
     }
   }, [data]);
 
@@ -71,8 +70,8 @@ export default function ComboboxProjects({
           aria-expanded={open}
           className="w-[220px] justify-between"
         >
-          {selectedProject
-            ? proyectosData.find((p) => p.nombreproyecto === selectedProject)
+          {selectedProjectId
+            ? proyectosData.find((p) => p.id === selectedProjectId)
                 ?.nombreproyecto
             : proyectosData[0].nombreproyecto}
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -88,8 +87,8 @@ export default function ComboboxProjects({
                 <CommandItem
                   key={project.id}
                   value={project.nombreproyecto}
-                  onSelect={(currentProject) => {
-                    setSelectedProject(currentProject);
+                  onSelect={() => {
+                    setSelectedProjectId(project.id);
                     setOpen(false);
                   }}
                 >
@@ -97,7 +96,7 @@ export default function ComboboxProjects({
                   <Check
                     className={cn(
                       "ml-auto",
-                      selectedProject === project.nombreproyecto
+                      selectedProjectId === project.id
                         ? "opacity-100"
                         : "opacity-0",
                     )}

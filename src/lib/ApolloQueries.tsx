@@ -51,8 +51,8 @@ export const GET_ENTREGAS = gql`
 `;
 
 export const GET_USER = gql`
-  query GetUser($id: ID!) {
-    findUsuarioById(id: $id) {
+  query GetUser {
+    findUsuarioById(id: "1") {
       id
       correo
       nombreusuario
@@ -66,6 +66,27 @@ export const GET_PROYECTOS = gql`
     findAllProyecto {
       id
       nombreproyecto
+    }
+  }
+`;
+
+export const CREATE_DOCUMENT = gql`
+  mutation CreateDocumento($documentoInput: DocumentoInput!) {
+    createDocumento(documentoInput: $documentoInput) {
+      id
+    }
+  }
+`;
+
+export const CREATE_ENTREGA = gql`
+  mutation CreateEntrega($entregaInput: EntregaInput!) {
+    createEntrega(entregaInput: $entregaInput) {
+      id
+      nombrearchivo
+      tipodocumento
+      urlubicacion
+      fechasubida
+      ultimamodificacion
     }
   }
 `;

@@ -3,30 +3,25 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRef, useState } from "react";
 import { useNotification } from "@/components/contexts/NotificationContext";
+import { CREATE_DOCUMENT, CREATE_ENTREGA } from "@/lib/ApolloQueries";
 
-const CREATE_DOCUMENT = gql`
-  mutation CreateDocumento($documentoInput: DocumentoInput!) {
-    createDocumento(documentoInput: $documentoInput) {
-      id
-      nombrearchivo
-      tipodocumento
-      urlubicacion
-      fechasubida
-      ultimamodificacion
-    }
-  }
-`;
+interface UploadFileProps {
+  selectedProject: string;
+}
 
-export default function UploadFile() {
+export default function UploadFile({ selectedProject }: UploadFileProps) {
   const { addNotification } = useNotification();
   const [documentName, setDocumentName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [createDocument] = useMutation(CREATE_DOCUMENT, {
     refetchQueries: ["GetDocumentos"],
+  });
+  const [createEntrega] = useMutation(CREATE_ENTREGA, {
+    refetchQueries: ["GetEntregas"],
   });
   const MAX_FILE_SIZE_MB = 15;
   const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
@@ -80,16 +75,29 @@ export default function UploadFile() {
       return;
     }
 
+    let tamaño = (selectedFile.size / (1024 * 1024)).toString();
+
     try {
-      await createDocument({
+      let currentDate = new Date().toLocaleDateString("es-co");
+      const { data: documentData } = await createDocument({
         variables: {
           documentoInput: {
             nombrearchivo: documentName.trim(),
-            fechasubida: new Date().toLocaleDateString("es-co"),
-            ultimamodificacion: new Date().toLocaleDateString("es-co"),
+            tamanoarchivo: tamaño,
+            fechasubida: currentDate,
+            ultimamodificacion: currentDate,
             tipodocumento:
               selectedFile.type === "application/pdf" ? "PDF" : "DOCX",
             urlubicacion: "www.urldescarga.com/doc-x",
+          },
+        },
+      });
+      await createEntrega({
+        variables: {
+          entregaInput: {
+            documento: documentData.id,
+            fechaEntrega: currentDate,
+            proyecto: selectedProject,
           },
         },
       });
