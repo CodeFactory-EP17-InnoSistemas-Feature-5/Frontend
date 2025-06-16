@@ -26,7 +26,9 @@ export default function RootLayout({
           <ApolloWrapper>
             <NotificationProvider>
               <Header />
-              <main className="flex-grow overflow-y-auto py-5">{children}</main>
+              <main className="flex-grow overflow-y-auto py-5 md:pb-0 lg:py-5">
+                {children}
+              </main>
               <Footer />
             </NotificationProvider>
           </ApolloWrapper>

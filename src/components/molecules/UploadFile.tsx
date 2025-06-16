@@ -154,7 +154,7 @@ export default function UploadFile() {
       <Input
         type="file"
         ref={fileInputRef}
-        className="w-1/2"
+        className="w-3/4 lg:w-1/2"
         accept=".pdf, application/pdf, .docx, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         onChange={(e) => {
           if (e.target.files && e.target.files.length > 0) {
@@ -164,7 +164,7 @@ export default function UploadFile() {
           }
         }}
       />
-      <Button onClick={buttonSave} className="w-2/7">
+      <Button onClick={buttonSave} className="w-2/4 md:w-2/7">
         Subir documento
       </Button>
     </>

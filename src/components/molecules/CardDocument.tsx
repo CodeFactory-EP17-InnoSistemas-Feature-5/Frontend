@@ -61,7 +61,7 @@ export default function CardDocument({
   };
 
   return (
-    <Card className="mt-2 flex h-full min-h-[307px] min-w-[396px] flex-none flex-col rounded-sm">
+    <Card className="mt-2 flex h-full w-full flex-none flex-col rounded-sm sm:max-h-[307px] sm:max-w-[396px]">
       <CardHeader className="">
         <CardTitle className="text-2xl">
           <div className="flex w-full items-center justify-between">

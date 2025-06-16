@@ -1,11 +1,10 @@
-import DocumentTabs from "./DocumentTabs";
+import Header1 from "@/components/atoms/Header1";
+import DocumentTabs from "@/components/organisms/DocumentTabs";
 
 export default function DocumentView() {
   return (
-    <div>
-      <h1 className="mb-2 text-base font-semibold sm:text-2xl">
-        Documentos del proyecto
-      </h1>
+    <div className="">
+      <Header1>Documentos del proyecto</Header1>
       <DocumentTabs></DocumentTabs>
     </div>
   );

@@ -1,11 +1,10 @@
 import ComboboxProjects from "@/components/molecules/ComboboxProjects";
+import Header1 from "../atoms/Header1";
 
 export default function DocumentFilter() {
   return (
     <div>
-      <h1 className="mb-3 text-base font-semibold sm:text-2xl">
-        Gestión de Documentos
-      </h1>
+      <Header1>Gestión de Documentos</Header1>
       <ComboboxProjects></ComboboxProjects>
     </div>
   );

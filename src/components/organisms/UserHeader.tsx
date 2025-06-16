@@ -12,7 +12,7 @@ export default function UserHeader() {
   return (
     <div className="flex items-center justify-center pr-3">
       <DropdownNotification />
-      <p className="mr-15 ml-5 text-base font-medium sm:text-lg">
+      <p className="mr-15 ml-5 hidden font-medium sm:inline-block">
         Hola, &lt;&lt;{user?.nombreusuario}&gt;&gt;
       </p>
       <DropdownUser />

@@ -62,12 +62,12 @@ export default function DocumentTabs() {
 
   return (
     <Tabs defaultValue="all" className="w-full">
-      <TabsList className="grid w-[400px] grid-cols-2">
+      <TabsList className="grid w-auto grid-cols-2 lg:w-[400px]">
         <TabsTrigger value="all">Todos</TabsTrigger>
         <TabsTrigger value="user">Mis documentos</TabsTrigger>
       </TabsList>
       <TabsContent value="all">
-        <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
+        <div className="flex flex-row items-end gap-x-4 overflow-x-auto pb-4">
           {filteredProyectoEntregas.length > 0 ? (
             filteredProyectoEntregas.map((entrega) => {
               return (
@@ -87,7 +87,7 @@ export default function DocumentTabs() {
         </div>
       </TabsContent>
       <TabsContent value="user">
-        <div className="flex flex-row items-end gap-x-4 overflow-x-auto">
+        <div className="flex flex-row items-end gap-x-4 overflow-x-auto pb-4">
           {filteredUserEntregas.length > 0 ? (
             filteredUserEntregas.map((entrega) => {
               return (
