@@ -10,7 +10,7 @@ import { useMemo } from "react";
 import { useSelectedProject } from "@/components/contexts/SelectedProjectContext";
 
 export default function DocumentTabs() {
-  const { selectedProjectId, setSelectedProjectId } = useSelectedProject();
+  const { selectedProjectId } = useSelectedProject();
   const {
     loading: entregasLoading,
     error: entregasError,
@@ -74,6 +74,7 @@ export default function DocumentTabs() {
                 <CardDocument
                   key={entrega.id}
                   entrega={entrega}
+                  currentUserId={user?.id || ""}
                   cardVariant={entrega.usuario.rol as "student" | "teacher"}
                 />
               );
@@ -93,6 +94,7 @@ export default function DocumentTabs() {
                 <CardDocument
                   key={entrega.id}
                   entrega={entrega}
+                  currentUserId={user?.id || ""}
                   cardVariant={entrega.usuario.rol as "student" | "teacher"}
                 />
               );

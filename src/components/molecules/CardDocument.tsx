@@ -19,9 +19,14 @@ import { Entrega } from "@/lib/Interfaces";
 interface CardUserProps {
   entrega: Entrega;
   cardVariant: "student" | "teacher";
+  currentUserId: string;
 }
 
-export default function CardDocument({ entrega, cardVariant }: CardUserProps) {
+export default function CardDocument({
+  entrega,
+  cardVariant,
+  currentUserId,
+}: CardUserProps) {
   const { addNotification } = useNotification();
 
   const [deleteDocument] = useMutation(DELETE_DOCUMENT, {
@@ -73,7 +78,7 @@ export default function CardDocument({ entrega, cardVariant }: CardUserProps) {
       </CardContent>
       <CardFooter className="flex flex-col gap-y-2">
         <div className="flex min-h-10 w-full justify-between">
-          {cardVariant === "student" && (
+          {entrega.usuario.id === currentUserId && (
             <>
               <Button
                 variant={"outline"}
@@ -100,10 +105,9 @@ export default function CardDocument({ entrega, cardVariant }: CardUserProps) {
           )}
         </div>
         <div className="flex w-full">
-          {cardVariant === "student" && (
+          {entrega.usuario.id === currentUserId ? (
             <DeleteAlert onConfirmDelete={handleDelete}></DeleteAlert>
-          )}
-          {cardVariant === "teacher" && (
+          ) : (
             <Button
               variant={"outline"}
               className="w-full border-2 border-gray-400"
