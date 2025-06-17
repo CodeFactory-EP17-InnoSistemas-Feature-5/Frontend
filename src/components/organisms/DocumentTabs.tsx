@@ -46,7 +46,7 @@ export default function DocumentTabs() {
       );
     }
     return userEntregas;
-  }, [entregas, user]);
+  }, [entregas, user, selectedProjectId]);
 
   if (entregasLoading || userLoading) {
     return <Loading />;
